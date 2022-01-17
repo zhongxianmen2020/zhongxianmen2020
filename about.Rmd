@@ -18,10 +18,25 @@ pdf.options(useDingbats = TRUE)
 
 Data Scientist
 zhongxianmen@hotmail.com
-<!-- P.J. Bartlein -->
-<!-- Dept. Geography -->
-<!-- Univ. Oregon -->
-<!-- bartlein@uoregon.edu -->
+
+## Bibliographies
+
+[Google Scholar](https://scholar.google.com/citations?user=fxgQUPsAAAAJ&hl=en)
+
+[LinkedIn](https://www.linkedin.com/in/zhongxian-men-ph-d-1a671729/)
+
+[reearchgate](https://www.researchgate.net/profile/Zhongxian-Men) 
+
+
+## Interests
+Simulation based inference for statistical and machine learning problems.
+
+## GitHub
+[https://github.com/zhongxianmen2020](https://github.com/zhongxianmen2020)
 
 The GitHub repository for this web site is at:
 [https://zhongxianmen2020.github.io/zhongxianmen2020/](https://zhongxianmen2020.github.io/zhongxianmen2020/)
+
+
+
+
