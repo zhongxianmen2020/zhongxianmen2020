@@ -21,7 +21,7 @@ pdf.options(useDingbats = TRUE)
 
 
 
-### 1. interRate: An R package on Bayesian Markov Chain Monte Carlo inference for interest rate models 
+### 1. [interRate: An R package on Bayesian Markov Chain Monte Carlo inference for interest rate models](interRate.html) 
 
 
 
