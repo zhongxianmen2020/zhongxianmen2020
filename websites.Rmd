@@ -1,5 +1,5 @@
 ---
-title: "Some informations related to my background"
+title: "Usful Links"
 output:
   html_document:
     #css: html-md-01.css
@@ -16,8 +16,14 @@ knitr::opts_chunk$set(dev='png', dpi=300, cache=TRUE)
 pdf.options(useDingbats = TRUE)
 ```
 
+## Statistical and Machine Learning
+
+There are two very useful books for statistical and machine learning. One is [The Elements of Statistical Learning: Data Mining, Inference, and Prediction](https://hastie.su.domains/ElemStatLearn/), and the other is [An Introduction to Statistical Learning with Applications in R](https://www.statlearning.com/) . You can download the PDF versions of the books from the authors’ websites as well as the R codes used in the books.
 
 
+## Computational Tools
+
+Usually, I use [MATLAB](https://www.mathworks.com/products/matlab.html) as a program tool to fit various models. [MATLAB](https://www.mathworks.com/products/matlab.html) is usually faster than some of the computation tools. Its plot functions can also produce better graphs. For statistical analysis, [MATLAB](https://www.mathworks.com/products/matlab.html) does not have many packages compared with [R](https://www.r-project.org/). A very similar software, called [Scilab](https://www.scilab.org/), has been developed, which is free software and has many built-in functions equivalent to the functions in [MATLAB](https://www.mathworks.com/products/matlab.html). When writing codes for Markov Chain Monte Carlo (MCMC) algorithms, both MATLAB and R are slow. For this reason, I write C/C++ codes using [Code:Blocks](http://www.codeblocks.org/) as an IDE. [Code:Blocks](http://www.codeblocks.org/) is a free integrated development environment for C, C++ and FORTRAN. As there are no efficient random number generators inside C and C++, I use [Numerical Recipes](http://numerical.recipes/), which provides not only C++ version but also versions for C, FORTRAN 77 and 90. You can call Numerical Recipes from within [MATLAB®](https://www.mathworks.com/products/matlab.html).
 
 
 

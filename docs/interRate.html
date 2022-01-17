@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Zhongxian Men, Chengguo Weng" />
+
+
+<title>interRate: An R package on Bayesian Markov Chain Monte Carlo inference for interest rate models</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/spacelab.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } /* Alert */
+code span.an { color: #008000; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #0000ff; } /* ControlFlow */
+code span.ch { color: #008080; } /* Char */
+code span.cn { } /* Constant */
+code span.co { color: #008000; } /* Comment */
+code span.cv { color: #008000; } /* CommentVar */
+code span.do { color: #008000; } /* Documentation */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.im { } /* Import */
+code span.in { color: #008000; } /* Information */
+code span.kw { color: #0000ff; } /* Keyword */
+code span.op { } /* Operator */
+code span.ot { color: #ff4000; } /* Other */
+code span.pp { color: #ff4000; } /* Preprocessor */
+code span.sc { color: #008080; } /* SpecialChar */
+code span.ss { color: #008080; } /* SpecialString */
+code span.st { color: #008080; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #008080; } /* VerbatimString */
+code span.wa { color: #008000; font-weight: bold; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="html-md-01.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Zhongxian Men</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="intro.html">Packages</a>
+</li>
+<li>
+  <a href="tutorials.html">Tutorials</a>
+</li>
+<li>
+  <a href="Publications.html">Publications</a>
+</li>
+<li>
+  <a href="websites.html">Useful links</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">interRate: An R package on Bayesian Markov Chain Monte Carlo inference for interest rate models</h1>
+<h4 class="author">Zhongxian Men, Chengguo Weng</h4>
+<h4 class="date">1/17/2022</h4>
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#introduction"><span class="toc-section-number">1</span> Introduction</a></li>
+<li><a href="#install-the-package"><span class="toc-section-number">2</span> Install the package</a></li>
+<li><a href="#ou-model-estimation-and-assessment"><span class="toc-section-number">3</span> OU model estimation and assessment</a></li>
+<li><a href="#mou-model-estimation-and-assessment"><span class="toc-section-number">4</span> MOU model estimation and assessment</a></li>
+<li><a href="#cir-model-estimation-and-assessment"><span class="toc-section-number">5</span> CIR model estimation and assessment</a></li>
+<li><a href="#cev-model-estimation-and-assessment"><span class="toc-section-number">6</span> CEV model estimation and assessment</a></li>
+<li><a href="#conclution-and-next-steps"><span class="toc-section-number">7</span> Conclution and next steps</a></li>
+<li><a href="#appendix-mcmc-algorithm-for-the-estimation-of-ou-model"><span class="toc-section-number">8</span> Appendix: MCMC Algorithm for the estimation of OU model</a></li>
+</ul>
+</div>
+
+<div id="introduction" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Introduction</h1>
+<p>We built an R package to fit four types of stochastic differential equation (SDE) models on discrete-time observations. The four models considered in the package are: the Ornstein–Uhlenbeck (OU) model which is also called the Vasicek model in the literature, the modified OU model called the MOU model in this tutorial, the Cox–Ingersoll–Ross (CIR) model, , and the CEV or constant elasticity of variance model.Bayesian Markov Chain Monte Carlo (MCMC) methods are derived for parameter estimation where the positivity assumption imposed on some of the parameters can be satisfied simultaneously in the estimation process.</p>
+<p>The motivation for creating this R package came from my former experience. The usual way to fit the interest rate models is to reorganize the discrete-time observations into a linear regression format and then fit a linear regression model. If the positivity assumption imposed on some of the parameters is not satisfied, they just discard the fitted model and fit another SDE model. Fitting a SDE model in this way is not quite correct. My opinion is that if you want to fit a model with postitivity assumption to some parameters, you have to consider it during the fitting process. You can not fit a model by ignoring the assumption first and then check the assumption after the model is fitted. This is why we propose using MCMC to fit these SDE models in which the assumption can be satisfied automatically in the estimation process.</p>
+</div>
+<div id="install-the-package" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Install the package</h1>
+<p>To install the built package <code>interRate</code>, you need to have the package <code>devtools</code> available in your R or RStudio if you use RStudio as the IDE. Please use <code>install.packages("devtools")</code> to install it first. Then we install our package <code>interRate</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;zhongxianmen2020/interRate&quot;</span>)</span></code></pre></div>
+<pre><code>## Skipping install of &#39;interRate&#39; from a github remote, the SHA1 (cbeaf78a) has not changed since last install.
+##   Use `force = TRUE` to force installation</code></pre>
+<p>If you want to install <code>interRate</code> again, you need the following</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;zhongxianmen2020/interRate&quot;</span>, <span class="at">force=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## Downloading GitHub repo zhongxianmen2020/interRate@HEAD</code></pre>
+<pre><code>## Error in utils::download.file(url, path, method = method, quiet = quiet,  : 
+##   cannot open URL &#39;https://api.github.com/repos/zhongxianmen2020/interRate/tarball/HEAD&#39;</code></pre>
+<p><strong>Note</strong> Sometimes GitHub may delay your request and there will be an error. If this happens, please try again later.</p>
+</div>
+<div id="ou-model-estimation-and-assessment" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> OU model estimation and assessment</h1>
+<p>Let <span class="math inline">\(r_t\)</span> denote the observed interest rate at time <span class="math inline">\(t\)</span>, <span class="math inline">\(t\leq T\)</span>. The OU model is defined below.</p>
+<p><span class="math display">\[
+dr_{t}=(\alpha -\beta r_t) dt +\sigma dW_t,
+\]</span> where <span class="math inline">\(\{W_t, t\geq0\}\)</span> denotes the Wiener process, <span class="math inline">\(\beta&gt;0\)</span> and <span class="math inline">\(\sigma&gt;0\)</span>. Define by <span class="math inline">\(\theta=(\alpha, \beta, \sigma)\)</span> the vector of parameters of the OU model.</p>
+<p>We assess the performance of the developed MCMC method for discrete OU model by simulation studies. We generate an artificial time series using the OU model with given parameter values. The generated data is then fitted by the derived MCMC estimation algorithm to see whether the estimation method can recover the true parameters used in the artificial data generation. The values of parameters used to generate artificial interest rate time series can be seen in the code below.</p>
+<p>We need two libraries for artificial data generation.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">22</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>N <span class="ot">=</span> <span class="dv">500</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>r <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span>N</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>r[<span class="dv">1</span>] <span class="ot">=</span> <span class="fl">0.0013875</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">=</span> <span class="fl">0.018</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">=</span> <span class="fl">0.015</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">=</span> <span class="fl">0.012</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>N){</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  r[i] <span class="ot">=</span> r[i<span class="dv">-1</span>] <span class="sc">+</span> alpha <span class="sc">-</span> beta<span class="sc">*</span>r[i<span class="dv">-1</span>] <span class="sc">+</span> sigma<span class="sc">*</span><span class="fu">rnorm</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>k <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span> <span class="fu">length</span>(r)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(k, r, <span class="at">type=</span><span class="st">&quot;l&quot;</span>)</span></code></pre></div>
+<p><img src="interRate_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>Now we fit the OU model to the artificially generated data set. We first load the built R package <code>interRate</code>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(interRate)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>burn_in <span class="ot">=</span> <span class="dv">5000</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>N <span class="ot">=</span> <span class="dv">15000</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>model_fit <span class="ot">=</span> <span class="fu">interRate</span>(r, burn_in, N, <span class="st">&quot;OU&quot;</span>)</span></code></pre></div>
+<p>After discarding the first burn_in of 5,000 sampled points, we use the 10,000 sampled points for parameter estimation. We plot the three sampled time series after the burn_in period.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ts_plot</span>(model_fit<span class="sc">$</span>mcmc_series)</span></code></pre></div>
+<p><img src="interRate_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>The following table contains the estimated parameters, the standard deviations, and the Bayesian confidence intervals.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>model_fit<span class="sc">$</span>estimate</span></code></pre></div>
+<pre><code>##         Est.         Std. HPD CI(95%)_lower HPD CI(95%)_upper
+## 1 0.01933546 0.0020653252        0.01517741        0.02337829
+## 2 0.01675521 0.0019904958        0.01269524        0.02055154
+## 3 0.01187326 0.0003793787        0.01113819        0.01260001</code></pre>
+<p>For goodness-of-fit assessment of the estimated SDE models, there are a number of techniques that can be used. One of them is the Kolmogorov-Smirnov (K-S) test, which is often applied to assess whether the realized observation errors originated from the corresponding distribution follow a standard normal distribution.</p>
+<p>The standardized residuals calculated using the formula below would follow a standard normal distribution.</p>
+<p><span class="math display">\[
+Residual_t =(r_t-(\hat{\alpha} -\hat{\beta} r_t))/\hat{\sigma},
+\]</span></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">QQ_plot</span>(model_fit<span class="sc">$</span>standard_residuals)</span></code></pre></div>
+<p><img src="interRate_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<pre><code>## 
+##  One-sample Kolmogorov-Smirnov test
+## 
+## data:  ress
+## D = 0.028598, p-value = 0.8091
+## alternative hypothesis: two-sided</code></pre>
+<p>The K-S test for the normality assumption shows that the p-value is 0.8091. So we can not reject the non hypothesis that the standardized residuals follow a univariate normal distribution.</p>
+<p>Another approach is to assess the probability integra transforms (PITs)] obtained from fitted SDE models. If the fitted SDE model agrees with the data, the PITs will follow a uniform distribution <span class="math inline">\(U(0,1)\)</span>. Again, we use the K-S test to test the uniformality of the PITs.</p>
+<p>Suppose that <span class="math inline">\(\{f(r_t|{\cal F}_{t-1})\}_{t=1}^{T}\)</span> is a sequence of conditional densities of <span class="math inline">\(r_t\)</span> and <span class="math inline">\(\{p(r_t|{\cal F}_{t-1})\}_{t=1}^{T}\)</span> is the corresponding sequence of one-step-ahead density forecasts. The PIT of <span class="math inline">\(r_t\)</span> is defined as</p>
+<p><span class="math display">\[
+u(t)=\int_{-\infty}^{r_t} p(z|{\cal F}_{t-1})dz.
+\]</span></p>
+<p>Under the null hypothesis that the sequence <span class="math inline">\(\{p(r_t|{\cal F}_{t-1})\}_{t=1}^{T}\)</span> coincides with <span class="math inline">\(\{f(r_t|{\cal F}_{t-1})\}_{t=1}^{T}\)</span>, the sequence <span class="math inline">\(\{u(t)\}_{t=1}^T\)</span> corresponds to i.i.d. observations from the Uniform distribution <span class="math inline">\(U(0,1)\)</span>. For the OU model, the PITs can be calculated using the following formula.</p>
+<p><span class="math display">\[
+u(t)=\int_{-\infty}^{r_t}\frac{1}{\sqrt{2\pi}\sigma} \exp\bigg\{-\frac{(z-r_{t-1}-\alpha+\beta r_{t-1})^2}{2\sigma^2}\bigg\}dz\label{PitOne}
+\]</span></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cdf_plot</span>(model_fit<span class="sc">$</span>empir_cdf)</span></code></pre></div>
+<p><img src="interRate_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<pre><code>## 
+##  One-sample Kolmogorov-Smirnov test
+## 
+## data:  model_cdf
+## D = 0.029664, p-value = 0.7711
+## alternative hypothesis: two-sided</code></pre>
+<p>The two blue lines are the 95% confidence interval. The K-S test for the uniformality assumption shows that the p-value is 0.7711. So we can not reject the non hypothesis that the PITs calculated from the fitted Ou model based on the training data follow a uniform distribution in the interval (0,1).</p>
+<p>As usual, we also give AIC and BIC of the fitted model to the data.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>model_fit<span class="sc">$</span>Aic</span></code></pre></div>
+<pre><code>## [1] -3006.927</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>model_fit<span class="sc">$</span>Bic</span></code></pre></div>
+<pre><code>## [1] -3000.502</code></pre>
+</div>
+<div id="mou-model-estimation-and-assessment" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> MOU model estimation and assessment</h1>
+<p>Let <span class="math inline">\(r_t\)</span> denote the observed interest rate at time <span class="math inline">\(t\)</span>, <span class="math inline">\(t\leq T\)</span>. The MOU model is defined below.</p>
+<p><span class="math display">\[
+dr_{t}=(\alpha -\beta r_t) dt +\sigma r_t dW_t,
+\]</span> where <span class="math inline">\(\{W_t, t\geq0\}\)</span> denotes the Wiener process, <span class="math inline">\(\beta&gt;0\)</span> and <span class="math inline">\(\sigma&gt;0\)</span>. Define by <span class="math inline">\(\theta=(\alpha, \beta, \sigma)\)</span> the vector of parameters of the MOU model.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nimble)</span></code></pre></div>
+<pre><code>## nimble version 0.12.1 is loaded.
+## For more information on NIMBLE and a User Manual,
+## please visit https://R-nimble.org.</code></pre>
+<pre><code>## 
+## Attaching package: &#39;nimble&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:stats&#39;:
+## 
+##     simulate</code></pre>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;HDInterval&quot;</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co">#library(latex2exp)</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">22</span>)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>N <span class="ot">=</span> <span class="dv">500</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>r <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span>N</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>r[<span class="dv">1</span>] <span class="ot">=</span> <span class="fl">0.0013875</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>alphab <span class="ot">=</span> <span class="fl">0.018</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">=</span> <span class="fl">0.015</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">=</span> <span class="fl">0.012</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>N){</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  r[i] <span class="ot">=</span> r[i<span class="dv">-1</span>] <span class="sc">+</span> alpha <span class="sc">-</span> beta<span class="sc">*</span>r[i<span class="dv">-1</span>] <span class="sc">+</span>sigma<span class="sc">*</span>r[i<span class="dv">-1</span>]<span class="sc">*</span><span class="fu">rnorm</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>k <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span> <span class="fu">length</span>(r)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(k,r, <span class="at">type=</span><span class="st">&quot;l&quot;</span>)</span></code></pre></div>
+<p><img src="interRate_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>Now we fit the MOU model to the artificially generated data set.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(interRate)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>burn_in <span class="ot">=</span> <span class="dv">5000</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>N <span class="ot">=</span> <span class="dv">15000</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>model_fit <span class="ot">=</span> <span class="fu">interRate</span>(r, burn_in, N, <span class="st">&quot;MOU&quot;</span>)</span></code></pre></div>
+<p>The following table contains the estimated parameters, the standard deviations, and the Bayesian confidence intervals.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>model_fit<span class="sc">$</span>estimate</span></code></pre></div>
+<pre><code>##         Est.         Std. HPD CI(95%)_lower HPD CI(95%)_upper
+## 1 0.01799608 1.625546e-05        0.01796303        0.01802709
+## 2 0.01542245 5.333021e-04        0.01436339        0.01647043
+## 3 0.01188201 3.797387e-04        0.01115356        0.01262440</code></pre>
+<p>After discarding the first burn_in of 5,000 sampled points, we use the 10,000 sampled points for parameter estimation. We plot the three sampled time series after the burn_in period.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ts_plot</span>(model_fit<span class="sc">$</span>mcmc_series)</span></code></pre></div>
+<p><img src="interRate_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p>The standardized residuals calculated using the formula below would follow a standard normal distribution.</p>
+<p><span class="math display">\[
+Residual_t =(r_t-(\hat{\alpha} -\hat{\beta} r_t))/(\hat{\sigma} r_t),
+\]</span></p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">QQ_plot</span>(model_fit<span class="sc">$</span>standard_residuals)</span></code></pre></div>
+<p><img src="interRate_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<pre><code>## 
+##  One-sample Kolmogorov-Smirnov test
+## 
+## data:  ress
+## D = 0.027343, p-value = 0.8497
+## alternative hypothesis: two-sided</code></pre>
+<p>The K-S test for the normality assumption shows that the p-value is 0.8497. So we can not reject the non hypothesis that the standardized residuals follow a univariate normal distribution.</p>
+<p>Now, we look at the PITs for the estimated MOU model. <span class="math display">\[
+u(t)=\int_{-\infty}^{r_t}\frac{1}{\sqrt{2\pi}\sigma r_t} \exp\bigg\{-\frac{(z-r_{t-1}-\alpha+\beta r_{t-1})^2}{2\sigma^2 r_{t-1}^2}\bigg\}dz
+\]</span></p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cdf_plot</span>(model_fit<span class="sc">$</span>empir_cdf)</span></code></pre></div>
+<p><img src="interRate_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<pre><code>## 
+##  One-sample Kolmogorov-Smirnov test
+## 
+## data:  model_cdf
+## D = 0.028473, p-value = 0.8123
+## alternative hypothesis: two-sided</code></pre>
+<p>The two blue lines are the 95% confidence interval. The K-S test for the uniformality assumption shows that the p-value is 0.8123. So we can not reject the non hypothesis that the PITs calculated from the fitted Ou model based on the training data follow a uniform distribution in the interval (0,1).</p>
+<p>As usual, we also give AIC and BIC of the fitted model to the data.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>model_fit<span class="sc">$</span>Aic</span></code></pre></div>
+<pre><code>## [1] -3085.35</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>model_fit<span class="sc">$</span>Bic</span></code></pre></div>
+<pre><code>## [1] -3078.925</code></pre>
+</div>
+<div id="cir-model-estimation-and-assessment" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> CIR model estimation and assessment</h1>
+<p>Let <span class="math inline">\(r_t\)</span> denote the observed interest rate at time <span class="math inline">\(t\)</span>, <span class="math inline">\(t\leq T\)</span>. The CIR model is defined below.</p>
+<p><span class="math display">\[
+dr_{t}=(\alpha -\beta r_t) dt +\sigma \sqrt{r_t} dW_t,
+\]</span> where <span class="math inline">\(\{W_t, t\geq0\}\)</span> denotes the Wiener process, <span class="math inline">\(\alpha&gt;0\)</span>, <span class="math inline">\(\beta&gt;0\)</span> and <span class="math inline">\(\sigma&gt;0\)</span>. Define by <span class="math inline">\(\theta=(\alpha, \beta, \sigma)\)</span> the vector of parameters of the CIR model. In order for the CIR model to generate positive values an additional condition <span class="math inline">\(2\alpha &gt;\sigma^2\)</span> has to be met.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nimble)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;HDInterval&quot;</span>)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co">#library(latex2exp)</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">22</span>)</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>N <span class="ot">=</span> <span class="dv">500</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>r <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span>N</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>r[<span class="dv">1</span>] <span class="ot">=</span> <span class="fl">0.0013875</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">=</span> <span class="fl">0.018</span></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">=</span> <span class="fl">0.015</span></span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">=</span> <span class="fl">0.012</span></span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>N){</span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>  r[i] <span class="ot">=</span> r[i<span class="dv">-1</span>] <span class="sc">+</span> alpha <span class="sc">-</span> beta<span class="sc">*</span>r[i<span class="dv">-1</span>] <span class="sc">+</span>sigma<span class="sc">*</span><span class="fu">sqrt</span>(r[i<span class="dv">-1</span>])<span class="sc">*</span><span class="fu">rnorm</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>k <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span> <span class="fu">length</span>(r)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(k,r, <span class="at">type=</span><span class="st">&quot;l&quot;</span>)</span></code></pre></div>
+<p><img src="interRate_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<p>Now we fit the MOU model to the artificially generated data set.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(interRate)</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>burn_in <span class="ot">=</span> <span class="dv">5000</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>N <span class="ot">=</span> <span class="dv">15000</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>model_fit <span class="ot">=</span> <span class="fu">interRate</span>(r, burn_in, N, <span class="st">&quot;CIR&quot;</span>)</span></code></pre></div>
+<p>The following table contains the estimated parameters, the standard deviations, and the Bayesian confidence intervals.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>model_fit<span class="sc">$</span>estimate</span></code></pre></div>
+<pre><code>##         Est.         Std. HPD CI(95%)_lower HPD CI(95%)_upper
+## 1 0.01817683 0.0003895953        0.01739399        0.01890623
+## 2 0.01569573 0.0006565451        0.01446451        0.01703603
+## 3 0.01187670 0.0003795695        0.01112435        0.01259369</code></pre>
+<p>After discarding the first burn_in of 5,000 sampled points, we use the 10,000 sampled points for parameter estimation. We plot the three sampled time series after the burn_in period.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ts_plot</span>(model_fit<span class="sc">$</span>mcmc_series)</span></code></pre></div>
+<p><img src="interRate_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p>The standardized residuals calculated using the formula below would follow a standard normal distribution.</p>
+<p><span class="math display">\[
+Residual_t =(r_t-(\hat{\alpha} -\hat{\beta} r_t))/(\hat{\sigma} \sqrt{r_t}),
+\]</span></p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">QQ_plot</span>(model_fit<span class="sc">$</span>standard_residuals)</span></code></pre></div>
+<p><img src="interRate_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<pre><code>## 
+##  One-sample Kolmogorov-Smirnov test
+## 
+## data:  ress
+## D = 0.025265, p-value = 0.9077
+## alternative hypothesis: two-sided</code></pre>
+<p>The K-S test for the normality assumption shows that the p-value is 0.9077. So we can not reject the non hypothesis that the standardized residuals follow a univariate normal distribution.</p>
+<p>Now we fit the MOU model to the artificially generated data set.</p>
+<p><span class="math display">\[
+u(t)=\int_{-\infty}^{r_t}\frac{1}{\sqrt{2\pi r_t}\sigma} \exp\bigg\{-\frac{(z-r_{t-1}-\alpha+\beta r_{t-1})^2}{2\sigma^2 r_{t-1}}\bigg\}dz
+\]</span></p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cdf_plot</span>(model_fit<span class="sc">$</span>empir_cdf)</span></code></pre></div>
+<p><img src="interRate_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+<pre><code>## 
+##  One-sample Kolmogorov-Smirnov test
+## 
+## data:  model_cdf
+## D = 0.026371, p-value = 0.8776
+## alternative hypothesis: two-sided</code></pre>
+<p>The two blue lines are the 95% confidence interval. The K-S test for the uniformality assumption shows that the p-value is 0.8776. So we can not reject the non hypothesis that the PITs calculated from the fitted Ou model based on the training data follow a uniform distribution in the interval (0,1).</p>
+<p>As usual, we also give AIC and BIC of the fitted model to the data.</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>model_fit<span class="sc">$</span>Aic</span></code></pre></div>
+<pre><code>## [1] -3044.582</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>model_fit<span class="sc">$</span>Bic</span></code></pre></div>
+<pre><code>## [1] -3038.157</code></pre>
+</div>
+<div id="cev-model-estimation-and-assessment" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> CEV model estimation and assessment</h1>
+<p>Let <span class="math inline">\(r_t\)</span> denote the observed interest rate at time <span class="math inline">\(t\)</span>, <span class="math inline">\(t\leq T\)</span>. The CEV model is defined below.</p>
+<p><span class="math display">\[
+dr_{t}=(\alpha -\beta r_t) dt +\sigma r_t^{\gamma} dW_t,
+\]</span> where <span class="math inline">\(\{W_t, t\geq0\}\)</span> denotes the Wiener process, <span class="math inline">\(\beta&gt;0\)</span>, <span class="math inline">\(\sigma&gt;0\)</span> and <span class="math inline">\(\gamma&gt;0\)</span>. Define by <span class="math inline">\(\theta=(\alpha, \beta, \sigma, \gamma)\)</span> the vector of parameters of the CEV model.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nimble)</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;HDInterval&quot;</span>)</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="co">#library(latex2exp)</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">22</span>)</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>N <span class="ot">=</span> <span class="dv">500</span></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>r <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span>N</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>r[<span class="dv">1</span>] <span class="ot">=</span> <span class="fl">0.0013875</span></span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">=</span> <span class="fl">0.018</span></span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">=</span> <span class="fl">0.015</span></span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">=</span> <span class="fl">0.012</span></span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>gamma1 <span class="ot">=</span> <span class="fl">0.75</span></span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>N){</span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a>  r[i] <span class="ot">=</span> r[i<span class="dv">-1</span>] <span class="sc">+</span> alpha <span class="sc">-</span> beta<span class="sc">*</span>r[i<span class="dv">-1</span>] <span class="sc">+</span> sigma <span class="sc">*</span> r[i<span class="dv">-1</span>]<span class="sc">^</span>gamma1 <span class="sc">*</span> <span class="fu">rnorm</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>k <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span> <span class="fu">length</span>(r)</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(k,r, <span class="at">type=</span><span class="st">&quot;l&quot;</span>)</span></code></pre></div>
+<p><img src="interRate_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<p>Now we fit the CEV model to the artificially generated data set.</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(interRate)</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>burn_in <span class="ot">=</span> <span class="dv">5000</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>N <span class="ot">=</span> <span class="dv">15000</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>model_fit <span class="ot">=</span> <span class="fu">interRate</span>(r, burn_in, N, <span class="st">&quot;CEV&quot;</span>)</span></code></pre></div>
+<p>The following table contains the estimated parameters, the standard deviations, and the Bayesian confidence intervals.</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>model_fit<span class="sc">$</span>estimate</span></code></pre></div>
+<pre><code>##         Est.         Std. HPD CI(95%)_lower HPD CI(95%)_upper
+## 1 0.01802878 0.0001799633        0.01767418        0.01839702
+## 2 0.01554476 0.0005650349        0.01445982        0.01667657
+## 3 0.01181250 0.0003732035        0.01108860        0.01255051
+## 4 0.66354830 0.0723529508        0.52374109        0.79924273</code></pre>
+<p>After discarding the first burn_in of 5,000 sampled points, we use the 10,000 sampled points for parameter estimation. We plot the three sampled time series after the burn_in period.</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ts_plot</span>(model_fit<span class="sc">$</span>mcmc_series)</span></code></pre></div>
+<p><img src="interRate_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<p>The standardized residuals calculated using the formula below would follow a standard normal distribution.</p>
+<p><span class="math display">\[
+Residual_t =(r_t-(\hat{\alpha} -\hat{\beta} r_t))/(\hat{\sigma} {y_t}^{\hat{\gamma}}),
+\]</span></p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">QQ_plot</span>(model_fit<span class="sc">$</span>standard_residuals)</span></code></pre></div>
+<p><img src="interRate_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+<pre><code>## 
+##  One-sample Kolmogorov-Smirnov test
+## 
+## data:  ress
+## D = 0.029413, p-value = 0.781
+## alternative hypothesis: two-sided</code></pre>
+<p>The K-S test for the normality assumption shows that the p-value is 0.781. So we can not reject the non hypothesis that the standardized residuals follow a univariate normal distribution.</p>
+<p><span class="math display">\[
+u(t)=\int_{-\infty}^{r_t}\frac{1}{\sqrt{2\pi r_t}\sigma} \exp\bigg\{-\frac{(z-r_{t-1}-\alpha+\beta r_{t-1})^2}{2\sigma^2 r_{t-1} r_{t-1}^{2\gamma}}\bigg\}dz
+\]</span></p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cdf_plot</span>(model_fit<span class="sc">$</span>empir_cdf)</span></code></pre></div>
+<p><img src="interRate_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<pre><code>## 
+##  One-sample Kolmogorov-Smirnov test
+## 
+## data:  model_cdf
+## D = 0.027754, p-value = 0.8359
+## alternative hypothesis: two-sided</code></pre>
+<p>The two blue lines are the 95% confidence interval. The K-S test for the uniformality assumption shows that the p-value is 0.8359. So we can not reject the non hypothesis that the PITs calculated from the fitted Ou model based on the training data follow a uniform distribution in the interval (0,1).</p>
+<p>As usual, we also give AIC and BIC of the fitted model to the data.</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>model_fit<span class="sc">$</span>Aic</span></code></pre></div>
+<pre><code>## [1] -3062.684</code></pre>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>model_fit<span class="sc">$</span>Bic</span></code></pre></div>
+<pre><code>## [1] -3058.259</code></pre>
+</div>
+<div id="conclution-and-next-steps" class="section level1" number="7">
+<h1><span class="header-section-number">7</span> Conclution and next steps</h1>
+<p>We have shown how to use the functions in the package <code>interRate</code> from model fitting to model assessment. Simulation studies shows us that the developed MCMC methods are able to recover the true parameters used in artificial data generation.</p>
+<p>This version of the package is written in pure R language. To speed up the MCMC estimation process, we are planing to integrate C/C++ too.</p>
+<p>We are also planing to write a package for Python in which the estimation process would be written in C/C++.</p>
+</div>
+<div id="appendix-mcmc-algorithm-for-the-estimation-of-ou-model" class="section level1" number="8">
+<h1><span class="header-section-number">8</span> Appendix: MCMC Algorithm for the estimation of OU model</h1>
+<p><strong>Sample</strong> <span class="math inline">\(\alpha\)</span>. The full conditional of <span class="math inline">\(\alpha\)</span> is given by</p>
+<p><span class="math display">\[
+f(\alpha| {\bf r}, \theta_{-\alpha}) \propto \Pi_{t=2}^T\Bigg[ \exp \Bigg(-\frac{[r_t -r_{t-1} -\alpha +\beta r_{t-1}]^2}{2\sigma^2 }\Bigg)\Bigg]\notag\\
+\propto \exp \Bigg(-\frac{1}{2}\bigg[\alpha^2\sum_{t=2}^T \frac{1}{\sigma^2 } - 2\alpha\sum_{t=2}^T \frac{r_t -r_{t-1}  +\beta r_{t-1}}{\sigma^2 }\Bigg] \Bigg).
+\]</span> where <span class="math inline">\(\theta_{-\alpha}\)</span> is defined as the parameter vector <span class="math inline">\(\theta\)</span> except <span class="math inline">\(\alpha\)</span>. So the full conditional of <span class="math inline">\(\alpha\)</span> is a univariate normal distribution. <span class="math display">\[
+\alpha\sim N(a,b), \text{ with } a=\frac{d}{c}, b=\sqrt{\frac{1}{c}}, \text{where } c= \frac{T-1}{\sigma^2 } \text { and } d=\sum_{t=2}^T \frac{r_t -r_{t-1}  +\beta r_{t-1}}{\sigma^2}.
+\]</span></p>
+<p>Simulation of this full conditional is straightforward.</p>
+<p><strong>Sample</strong> <span class="math inline">\({\beta}\)</span>, <span class="math inline">\(\beta&gt;0\)</span>. The full conditional of <span class="math inline">\(\beta\)</span> is given by <span class="math display">\[
+f(\beta| {\bf r}, \theta_{-\beta}) \propto \Pi_{t=2}^T\Bigg[ \exp \Bigg(-\frac{[r_t -r_{t-1} -\alpha +\beta r_{t-1}]^2}{2\sigma^2 }\Bigg)\Bigg]\notag\\
+\propto \exp \Bigg(-\frac{1}{2}\bigg[\beta^2\sum_{t=2}^T \frac{ r_{t-1}^2}{\sigma^2} - 2\beta\sum_{t=2}^T \frac{(-r_t +r_{t-1}  +\alpha) r_{t-1}}{\sigma^2 }\Bigg] \Bigg).
+\]</span> So the full conditional of <span class="math inline">\(\beta\)</span> is a univariate normal distribution, <span class="math display">\[
+\beta\sim N\bigg(\frac{d_1}{c_1}, \sqrt{\frac{1}{c_1}}\bigg), \text{where } c_1=\sum_{t=2}^T \frac{ r_{t-1}^2}{\sigma^2} \text { and } d_1=\sum_{t=2}^T \frac{(-r_t +r_{t-1}  +\alpha)r_{t-1}}{\sigma^2 }.
+\]</span> Simulation of the full conditional of <span class="math inline">\(\beta\)</span> is carried out by just sampling a univariate normal distribution truanted in the interval <span class="math inline">\((0, \infty)\)</span>. We propose to use the slice sampler introduced in Neal (2003) to simulate this full conditional.</p>
+<p><strong>Sample</strong> Sample <span class="math inline">\({\sigma^2}\)</span>. The full conditional of <span class="math inline">\(\sigma^2\)</span> is given by <span class="math display">\[
+f(\sigma^2| {\bf r}, \theta_{-\sigma}) \propto (\sigma^2)^{-\frac{T-1}{2}}\Pi_{t=2}^T\Bigg[ \exp \Bigg(-\frac{[r_t -r_{t-1} -\alpha +\beta r_{t-1}]^2}{2\sigma^2 }\Bigg)\Bigg]\notag\\
+= (\sigma^2)^{-\frac{T-1}{2}} \exp \Bigg(-\frac{\frac{1}{2}\sum_{t=2}^T[r_t -r_{t-1} -\alpha +\beta r_{t-1}]^2}{\sigma^2 } \Bigg).
+\]</span> So the full conditional of <span class="math inline">\(\sigma^2\)</span> is an Inverse Gamma distribution, <span class="math display">\[
+\sigma^2\sim IG\bigg(\frac{T-3}{2}, \delta\bigg), \text{where } \delta=\frac{1}{2}\sum_{t=2}^T[r_t -r_{t-1} -\alpha +\beta r_{t-1}]^2.
+\]</span> We Simulate the full conditional of <span class="math inline">\(\sigma^2\)</span> by simulating an Inverse Gamma distribution.</p>
+<p><strong>Please kindly let us <code>zhongxianmen@hotmail.com</code> know your comments and suggestions, so we can improve it in the next version.</strong></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

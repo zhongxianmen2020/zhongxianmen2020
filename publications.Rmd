@@ -1,5 +1,5 @@
 ---
-title: "Zhongxian Men"
+title: "Publications"
 output:
   html_document:
     #css: html-md-01.css
@@ -16,27 +16,50 @@ knitr::opts_chunk$set(dev='png', dpi=300, cache=TRUE)
 pdf.options(useDingbats = TRUE)
 ```
 
-Data Scientist
-zhongxianmen@hotmail.com
 
-## Bibliographies
+* Men, Z., T. S. Wirjanto and A. Kolkiewicz. 2021. Multiscale Stochastic Volatility Model with Heavy Tails and Leverage Effects.([full text](https://www.mdpi.com/1911-8074/14/5/225))
 
-* [Google Scholar](https://scholar.google.com/citations?user=fxgQUPsAAAAJ&hl=en)
+* Men, Z., T. S. Wirjanto and A. Kolkiewicz. 2019. Threshold Stochastic Conditional Duration Model for Financial Transaction Data. Journal of Risk and Financial Management ([full text](https://www.mdpi.com/1911-8074/12/2/88/pdf)).
 
-* [LinkedIn](https://www.linkedin.com/in/zhongxian-men-ph-d-1a671729/)
+* Men, Z. and T. S. Wirjanto. 2017. A New Variant of Estimation Approach to Asymmetric Stochastic Volatility Models. Quantitative Finance and Economics. 2018, 2(2): 325-347 ([full text](http://www.aimspress.com/article/10.3934/QFE.2018.2.325)) 
 
-* [reearchgate](https://www.researchgate.net/profile/Zhongxian-Men) 
+* Men, Z., A. Kolkiewicz, and T. S. Wirjanto. 2016. Threshold Model for Financial Duration Data. (under revision).
+
+* Men, Z., A. Kolkiewicz, and T. S. Wirjanto. 2016. A Multiscale Stochastic Conditional Duration Model. Annals of Financial Economics. Vol. 11, No. 04 ([full text](https://www.worldscientific.com/doi/abs/10.1142/S2010495216500202)).
+
+* Men, Z., D. McLeish, A. Kolkiewicz and T. S. Wirjanto. 2017. Comparison of Asymmetric Stochastic Volatility Models under Different Correlation Structures. Journal of Applied Statistics.Volume 44, Issue 8: pp 1350-1368. ([full text](https://uwaterloo.ca/center-of-actuarial-excellence/sites/ca.center-of-actuarial-excellence/files/uploads/files/comparison_of_asymmetric_stochastic_volatility_models_under_different_correlation_structures.pdf)).
+
+* Wirjanto, T. S., A. Kolkiewicz, Z. Men. 2016. Bayesian Analysis of a Threshold Stochastic Volatility Model. Journal of Forecasting.  Volume 35, Issue 5. pp 462–476. ([full text](https://onlinelibrary.wiley.com/doi/abs/10.1002/for.2397?deniedAccessCustomisedMessage=&userIsAuthenticated=false)).
+
+* Men, Z., E. Yee, F. S. Lien, D. Wen, and Y. Chen. 2015. Short-Term Wind Speed and Power Forecasting via Ensemble Neural Network with Conditional Mixtures. Renewable Energy. Volume 87, Part 1, March 2016, pp 203-211 ([full text](http://www.sciencedirect.com/science/article/pii/S0960148115303645)).
+
+* Men, Z., A. Kolkiewicz, and T. S. Wirjanto. 2015. Bayesian Inference of Asymmetric Stochastic Conditional Duration Models. Journal of Statistical Computation and Simulation. Volume 86, 2016 -Issue 7. ([full text](http://www.tandfonline.com/doi/full/10.1080/00949655.2015.1060235#.VZbJWk9VhBe)).
+
+* McLeish, D. L. and Z. Men. 2015. Extreme Value Importance Sampling for Rare Event Risk Measurement. K. Glau et al. (eds.), Innovations in Quantitative Risk Management. Springer Proceedings in Mathematics & Statistics. Volume 99, 2015, pp 317-335. ([full text](http://link.springer.com/chapter/10.1007%2F978-3-319-09114-3_18)).
+
+* Men, Z., A. Kolkiewicz, and T. S. Wirjanto. 2015. Bayesian Analysis of Asymmetric Stochastic Conditional Duration Model. Journal of Forecasting. Volume 34, pp 36-56. ([full text](http://onlinelibrary.wiley.com/doi/10.1002/for.2317/abstract)).
+
+* Men, Z., T. S. Wirjanto and A. Kolkiewicz. 2014. Sampling-based Inference of Time Deformation Models with Heavy Tail Distributions. Communications in Statistics – Simulation and Computation. ([full text](https://uwaterloo.ca/center-of-actuarial-excellence/sites/ca.center-of-actuarial-excellence/files/uploads/files/2016_-_zhongxian_men_-_samplingbasedinferenceoftimedeformationmodelswithhretrieved-2016-12-29.pdf)).
+
+* Men, Z., E. Yee, F. S. Lien, H. Ji, and Y. Liu. 2014. Bootstrapped Multi-Model Neural-Network Super-Ensembles For Wind Speed And Power Forecasting. Energy and Power Engineering, 6, 340-348. doi: 10.4236/epe.2014.611029. ([full text](http://www.scirp.org/journal/PaperInformation.aspx?paperID=50353#.VIm634vF9uo)).
+
+* Men, Z., D. L. McLeish and A. Kolkiewicz. 2013. Factor Stochastic Volatility with Orthonormal Loadings. (Under revision).
+
+* Chen, R., W. Huang, Z. Men, and G. Tang. 2012. Open-shop Dense Schedules: Properties and Worst-case Performance Ratio. Journal of Scheduling. Volume 15, Issue 1, pp 3-11. ([full text](http://link.springer.com/article/10.1007%2Fs10951-009-0128-6))
+
+* Men, Z. 2012. Bayesian Inference for Stochastic Volatility Models. Ph.D. thesis, Department of Statistics and Actuarial Science at the University of Waterloo. ([full text](https://central.bac-lac.gc.ca/.item?id=TC-OWTU-7028&op=pdf&app=Library&oclc_number=860758124)).
 
 
-## Interests
-* Simulation based inference for statistical and machine learning problems.
+## Papers in Preparation
 
-## GitHub
-* [https://github.com/zhongxianmen2020](https://github.com/zhongxianmen2020)
+* Men Z. Bayesian Inference of Discrete Interest Rate Models.
 
-## The GitHub repository for this web site is at:
-* [https://zhongxianmen2020.github.io/zhongxianmen2020/](https://zhongxianmen2020.github.io/zhongxianmen2020/)
+* Men, Z. Bayesian Inference of Threshold Linear Regression Models.
 
+* Men, Z., J. He, Y. Tian, and J. Carson, and S. Kiesling. Logistic Regression with automatic data segmentation.
 
+* Men, Z., A. Kolkiewicz, and T. S. Wirjanto. Bayesian Inference of a Component Asymmetric Stochastic Volatility Model.
+
+* Men, Z., A. Kolkiewicz, and T. S. Wirjanto. A Component Stochastic Conditional Duration model for Financial Duration Data. 
 
 
