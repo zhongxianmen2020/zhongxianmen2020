@@ -1,5 +1,5 @@
 ---
-title: "GEOG 4/590:  R for Earth-System Science"
+title: "Zhongxian Men"
 output:
   html_document:
     #css: html-md-01.css
@@ -15,10 +15,13 @@ options(width = 105)
 knitr::opts_chunk$set(dev='png', dpi=300, cache=TRUE)
 pdf.options(useDingbats = TRUE)
 ```
-P.J. Bartlein
-Dept. Geography
-Univ. Oregon
-bartlein@uoregon.edu
+
+Data Scientist
+zhongxianmen@hotmail.com
+<!-- P.J. Bartlein -->
+<!-- Dept. Geography -->
+<!-- Univ. Oregon -->
+<!-- bartlein@uoregon.edu -->
 
 The GitHub repository for this web site is at:
-[https://github.com/pjbartlein/geog490](https://github.com/pjbartlein/geog490)
+[https://zhongxianmen2020.github.io/zhongxianmen2020/](https://zhongxianmen2020.github.io/zhongxianmen2020/)
