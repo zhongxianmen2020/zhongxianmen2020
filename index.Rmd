@@ -1,5 +1,5 @@
 ---
-title: "GEOG4/590: R for Earth-System Science"
+title: "Simulation-based Inference"
 output:
   html_document:
     #css: html-md-01.css
@@ -16,10 +16,29 @@ knitr::opts_chunk$set(dev='png', dpi=300, cache=TRUE)
 pdf.options(useDingbats = TRUE)
 ```
 
-## Project web page for GEOG 4/595 *R for Earth-System Science* ##
+<!-- ## Project web page for GEOG 4/595 *R for Earth-System Science* ## -->
 
-Topics covered here include:
+I am working on building some R and Python packages for both R and Python. The packages are mostly focused on financial time series models such as interest rate models, stochastic volatility models, stochastic conditional duration models, latent factor models including non-linear and non-normal state space models, probabilistic principal component models, and component factor models etc. The final goal is to build a set of packages to tackle those models so people can use them to solve the problems without re-implement the estimation algorithms. 
 
-- An introduction to the project
-- A simple example of plotting a raster slice
-- (more to come…)
+As these models are time-dependent and sometimes are overparameterized, usual MLE may not help to fit those models. We develop Markov Chain Monte Carlo (MCMC) methods within Bayesian framework. As simulation-based inferences are time-consuming, we first do experimentation in R and Python, and then build packages by rewriting the algorithms in C/C++ to speed up the estimation process. 
+
+Besides on package building, I will also write tutorials to introduce basic concepts of simulation-based inference such as acceptance-rejection methods, random number generation for non-usual distributions, slice sampler, Metropolis_Hastings methods etc. Those methods are just to get you familiar on why and how we need simulation based inference.   
+
+This is a long journey, please visit us frequently to check the updates.
+
+If you have any comments or suggestions, please kindly let me know by sending me an email to: zhongxianmen@hotmail.com
+
+<!-- ## Project web page for GEOG 4/595 *R for Earth-System Science* ## -->
+
+<!-- Topics covered here include: -->
+
+<!-- - An introduction to the project -->
+<!-- - A simple example of plotting a raster slice -->
+<!-- - (more to come…) -->
+
+
+
+
+
+
+

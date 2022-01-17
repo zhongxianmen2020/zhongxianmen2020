@@ -2,12 +2,19 @@ name: GEOG 4/590
 navbar:
   title: "Zhongxian Men"
   left:
-  - text: Topics
-    menu:
-    - text: Introduction
-      href: intro.html
-    - text: Raster mapping example
-      href: plot_alpha_RMarkdown_Site.html
+  - text: Packages
+    href: intro.html
+
+  # - text: Topics
+  #   menu:
+  #   - text: Introduction
+  #     href: intro.html
+  #   - text: Raster mapping example
+  #     href: plot_alpha_RMarkdown_Site.html
+  - text: Tutorials
+    href: tutorials.html  
+  - text: Websites
+    href: websites.html 
   right:
   - text: About
     href: about.html
