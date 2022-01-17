@@ -12,7 +12,9 @@ navbar:
   #   - text: Raster mapping example
   #     href: plot_alpha_RMarkdown_Site.html
   - text: Tutorials
-    href: tutorials.html  
+    href: tutorials.html 
+  - text: Publications
+    href: Publications.html 
   - text: Websites
     href: websites.html 
   right:
