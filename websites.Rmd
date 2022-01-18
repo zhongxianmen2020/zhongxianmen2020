@@ -1,5 +1,5 @@
 ---
-title: "Usful Links"
+title: "Useful Links"
 output:
   html_document:
     #css: html-md-01.css

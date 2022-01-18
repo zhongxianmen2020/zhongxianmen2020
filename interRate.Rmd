@@ -21,10 +21,6 @@ We built an R package to fit four types of stochastic differential equation (SDE
 
 The motivation for creating this R package came from my former experience. The usual way to fit the interest rate models is to reorganize the discrete-time observations into a linear regression format and them fits a linear regression model. If the positivity assumption imposed on some parameters is not satisfied, they just discard the fitted model and fit another SDE model. Fitting a SDE model in this way is not quite correct. My opinion is that if you want to fit a model with postitivity assumption to some parameters, you have to consider it during the fitting process. You can not fit a model by ignoring the assumption first and then check the assumption after the model is fitted. This is why we proposed using MCMC to fit these SDE models in which the assumption can be satisfied automatically in the estimation process.   
 
- 
-
-The motivation for creating this R package came from my former experience. The usual way to fit the interest rate models is to reorganize the discrete-time observations into a linear regression format and then fit a linear regression model. If the positivity assumption imposed on some of the parameters is not satisfied, they just discard the fitted model and fit another SDE model. Fitting a SDE model in this way is not quite correct. My opinion is that if you want to fit a model with postitivity assumption to some parameters, you have to consider it during the fitting process. You can not fit a model by ignoring the assumption first and then check the assumption after the model is fitted. This is why we propose using MCMC to fit these SDE models in which the assumption can be satisfied automatically in the estimation process.   
-
 
 # Install the package
 
@@ -55,7 +51,6 @@ where $\{W_t, t\geq0\}$ denotes the Wiener process, $\beta>0$ and $\sigma>0$. De
 We assess the performance of the developed MCMC method for discrete OU model by simulation studies. We generate an artificial time series using the OU model with given parameter values. The generated data is then fitted by the derived MCMC estimation algorithm to see whether the estimation method can recover the true parameters used in the artificial data generation.
 The values of parameters used to generate artificial interest rate time series can be seen in the code below.
 
-We need two libraries for artificial data generation.
 
 ```{r}
 set.seed(22)
