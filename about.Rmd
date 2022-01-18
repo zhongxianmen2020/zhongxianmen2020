@@ -23,13 +23,11 @@ zhongxianmen@hotmail.com
 
 * [Google Scholar](https://scholar.google.com/citations?user=fxgQUPsAAAAJ&hl=en)
 
-* [LinkedIn](https://www.linkedin.com/in/zhongxian-men-ph-d-1a671729/)
-
 * [Researchgate](https://www.researchgate.net/profile/Zhongxian-Men) 
 
 
 ## Interests
-* Simulation based inference for statistical and machine learning problems.
+* Interested in problems related to statistics, machine learning and time series analysis. I also passionate on simulation based inference and forecast for time series and statistical models.
 
 ## GitHub
 * [https://github.com/zhongxianmen2020](https://github.com/zhongxianmen2020)
