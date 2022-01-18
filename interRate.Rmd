@@ -17,7 +17,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Introduction
 
-We built an R package to fit four types of stochastic differential equation (SDE) models on discrete-time observations. The four models considered in the package are: the Ornstein–Uhlenbeck (OU) model which is also called the Vasicek model in the literature, the modified OU model called the MOU model in this tutorial,  the Cox–Ingersoll–Ross (CIR) model, , and the CEV or constant elasticity of variance model.Bayesian Markov Chain Monte Carlo (MCMC) methods are derived for parameter estimation where the positivity assumption imposed on some of the parameters can be satisfied simultaneously in the estimation process.   
+We built an R package to fit four types of stochastic differential equation (SDE) models =on discrete-time observations. The four models considered in the package are: the [Ornstein–Uhlenbeck (OU)](https://en.wikipedia.org/wiki/Ornstein%E2%80%93Uhlenbeck_process) model which is also called the [Vasicek](https://en.wikipedia.org/wiki/Vasicek_model) model in the literature, the [modified OU](https://fxpaul.wordpress.com/2011/05/27/closed-form-solution-of-modified-ornstein-uhlenbeck-process/) model called the MOU model in this tutorial,  the [Cox–Ingersoll–Ross (CIR)](https://en.wikipedia.org/wiki/Cox%E2%80%93Ingersoll%E2%80%93Ross_model) model, and the [constant elasticity of variance (CEV)](https://en.wikipedia.org/wiki/Constant_elasticity_of_variance_model) model. Bayesian Markov Chain Monte Carlo (MCMC) methods are derived for parameter estimation where the positivity assumption imposed on some of the parameters can be satisfied simultaneously in the estimation process.   
+
+The motivation for creating this R package came from my former experience. The usual way to fit the interest rate models is to reorganize the discrete-time observations into a linear regression format and them fits a linear regression model. If the positivity assumption imposed on some parameters is not satisfied, they just discard the fitted model and fit another SDE model. Fitting a SDE model in this way is not quite correct. My opinion is that if you want to fit a model with postitivity assumption to some parameters, you have to consider it during the fitting process. You can not fit a model by ignoring the assumption first and then check the assumption after the model is fitted. This is why we proposed using MCMC to fit these SDE models in which the assumption can be satisfied automatically in the estimation process.   
+
+ 
 
 The motivation for creating this R package came from my former experience. The usual way to fit the interest rate models is to reorganize the discrete-time observations into a linear regression format and then fit a linear regression model. If the positivity assumption imposed on some of the parameters is not satisfied, they just discard the fitted model and fit another SDE model. Fitting a SDE model in this way is not quite correct. My opinion is that if you want to fit a model with postitivity assumption to some parameters, you have to consider it during the fitting process. You can not fit a model by ignoring the assumption first and then check the assumption after the model is fitted. This is why we propose using MCMC to fit these SDE models in which the assumption can be satisfied automatically in the estimation process.   
 
@@ -112,7 +116,7 @@ QQ_plot(model_fit$standard_residuals)
 ```
 The K-S test for the normality assumption shows that the p-value is 0.8091. So we can not reject the non hypothesis that the standardized residuals follow a univariate normal distribution.
 
-Another approach is to assess the probability integra transforms (PITs)] obtained from fitted SDE models. If the fitted SDE model agrees with the data, the PITs will follow a uniform distribution $U(0,1)$. Again, we use the K-S test to test the uniformality of the PITs.
+Another approach is to assess [probability integral transforms (PITs)](https://en.wikipedia.org/wiki/Probability_integral_transform) obtained from fitted SDE models. If the fitted SDE model agrees with the data, the PITs will follow a uniform distribution $U(0,1)$. Again, we use the K-S test to test the uniformality of the PITs.
 
 Suppose that $\{f(r_t|{\cal F}_{t-1})\}_{t=1}^{T}$ is a sequence of conditional densities of $r_t$ and $\{p(r_t|{\cal F}_{t-1})\}_{t=1}^{T}$ is the corresponding sequence of one-step-ahead density forecasts. The PIT of $r_t$ is defined as
 
@@ -463,7 +467,7 @@ So the full conditional of $\beta$ is a univariate normal distribution,
 \[
 \beta\sim N\bigg(\frac{d_1}{c_1}, \sqrt{\frac{1}{c_1}}\bigg), \text{where } c_1=\sum_{t=2}^T \frac{ r_{t-1}^2}{\sigma^2} \text { and } d_1=\sum_{t=2}^T \frac{(-r_t +r_{t-1}  +\alpha)r_{t-1}}{\sigma^2 }.
 \]
-Simulation of the full conditional of $\beta$ is carried out by just sampling a univariate normal distribution truanted in the interval $(0, \infty)$. We propose to use the slice sampler introduced in Neal (2003) to simulate this full conditional.
+Simulation of the full conditional of $\beta$ is carried out by just sampling a univariate normal distribution truanted in the interval $(0, \infty)$. We propose to use the slice sampler introduced in [Neal (2003)](http://www.peterbeerli.com/classes/images/4/42/Neal2003.pdf) to simulate this full conditional to simulate this full conditional.
 
 
 **Sample** Sample ${\sigma^2}$. The full conditional of $\sigma^2$ is given by
@@ -471,14 +475,14 @@ Simulation of the full conditional of $\beta$ is carried out by just sampling a 
 f(\sigma^2| {\bf r}, \theta_{-\sigma}) \propto (\sigma^2)^{-\frac{T-1}{2}}\Pi_{t=2}^T\Bigg[ \exp \Bigg(-\frac{[r_t -r_{t-1} -\alpha +\beta r_{t-1}]^2}{2\sigma^2 }\Bigg)\Bigg]\notag\\
 = (\sigma^2)^{-\frac{T-1}{2}} \exp \Bigg(-\frac{\frac{1}{2}\sum_{t=2}^T[r_t -r_{t-1} -\alpha +\beta r_{t-1}]^2}{\sigma^2 } \Bigg).
 \]
-So the full conditional of $\sigma^2$ is an Inverse Gamma distribution,
+So the full conditional of $\sigma^2$ is an [Inverse Gamma](https://en.wikipedia.org/wiki/Inverse-gamma_distribution) distribution,
 \[
 \sigma^2\sim IG\bigg(\frac{T-3}{2}, \delta\bigg), \text{where } \delta=\frac{1}{2}\sum_{t=2}^T[r_t -r_{t-1} -\alpha +\beta r_{t-1}]^2.
 \]
 We Simulate the full conditional of $\sigma^2$ by simulating an Inverse Gamma distribution.
 
 
-**Please kindly let us `zhongxianmen@hotmail.com` know your comments and suggestions, so we can improve it in the next version.**
+**Please kindly let us `zhongxianmen@hotmail.com, chengguo.weng@uwaterloo.ca` know your comments and suggestions, so we can improve it in the next version.**
 
 
 

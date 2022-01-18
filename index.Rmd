@@ -16,6 +16,15 @@ knitr::opts_chunk$set(dev='png', dpi=300, cache=TRUE)
 pdf.options(useDingbats = TRUE)
 ```
 
+
+&nbsp;
+
+
+**Prediction is very difficult, especially if it’s about the future.  — Neils Bohr (玻尔).**
+
+
+&nbsp;
+
 <!-- ## Project web page for GEOG 4/595 *R for Earth-System Science* ## -->
 
 I am working on building some R and Python packages for both R and Python. The packages are mostly focused on financial time series models such as interest rate models, stochastic volatility models, stochastic conditional duration models, latent factor models including non-linear and non-normal state space models, probabilistic principal component models, and component factor models etc. The final goal is to build a set of packages to tackle those models so people can use them to solve the problems without re-implement the estimation algorithms. 

@@ -20,10 +20,14 @@ pdf.options(useDingbats = TRUE)
 &nbsp;
 
 
-
 ### 1. [interRate: An R package on Bayesian Markov Chain Monte Carlo inference for interest rate models](https://zhongxianmen2020.github.io/interRate.html) 
 
+The package `stovol` aims to built an R package to fit four types of stochastic differential equation (SDE) models on discrete-time observations. The four models considered in the package are: the Ornstein–Uhlenbeck (OU) model which is also called the Vasicek model in the literature, the modified OU model called the MOU model in this tutorial,  the Cox–Ingersoll–Ross (CIR) model, , and the CEV or constant elasticity of variance model.Bayesian Markov Chain Monte Carlo (MCMC) methods are derived for parameter estimation where the positivity assumption imposed on some of the parameters can be satisfied simultaneously in the estimation process.
 
 
+&nbsp;
 
+
+### 2. [stovol: An R package on Bayesian Markov Chain Monte Carlo inference for stochastic volatility models]
+ I am working on this package ...
 

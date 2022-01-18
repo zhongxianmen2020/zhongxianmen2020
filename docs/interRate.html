@@ -368,7 +368,8 @@ $(document).ready(function () {
 
 <div id="introduction" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Introduction</h1>
-<p>We built an R package to fit four types of stochastic differential equation (SDE) models on discrete-time observations. The four models considered in the package are: the Ornstein–Uhlenbeck (OU) model which is also called the Vasicek model in the literature, the modified OU model called the MOU model in this tutorial, the Cox–Ingersoll–Ross (CIR) model, , and the CEV or constant elasticity of variance model.Bayesian Markov Chain Monte Carlo (MCMC) methods are derived for parameter estimation where the positivity assumption imposed on some of the parameters can be satisfied simultaneously in the estimation process.</p>
+<p>We built an R package to fit four types of stochastic differential equation (SDE) models =on discrete-time observations. The four models considered in the package are: the <a href="https://en.wikipedia.org/wiki/Ornstein%E2%80%93Uhlenbeck_process">Ornstein–Uhlenbeck (OU)</a> model which is also called the <a href="https://en.wikipedia.org/wiki/Vasicek_model">Vasicek</a> model in the literature, the <a href="https://fxpaul.wordpress.com/2011/05/27/closed-form-solution-of-modified-ornstein-uhlenbeck-process/">modified OU</a> model called the MOU model in this tutorial, the <a href="https://en.wikipedia.org/wiki/Cox%E2%80%93Ingersoll%E2%80%93Ross_model">Cox–Ingersoll–Ross (CIR)</a> model, and the <a href="https://en.wikipedia.org/wiki/Constant_elasticity_of_variance_model">constant elasticity of variance (CEV)</a> model. Bayesian Markov Chain Monte Carlo (MCMC) methods are derived for parameter estimation where the positivity assumption imposed on some of the parameters can be satisfied simultaneously in the estimation process.</p>
+<p>The motivation for creating this R package came from my former experience. The usual way to fit the interest rate models is to reorganize the discrete-time observations into a linear regression format and them fits a linear regression model. If the positivity assumption imposed on some parameters is not satisfied, they just discard the fitted model and fit another SDE model. Fitting a SDE model in this way is not quite correct. My opinion is that if you want to fit a model with postitivity assumption to some parameters, you have to consider it during the fitting process. You can not fit a model by ignoring the assumption first and then check the assumption after the model is fitted. This is why we proposed using MCMC to fit these SDE models in which the assumption can be satisfied automatically in the estimation process.</p>
 <p>The motivation for creating this R package came from my former experience. The usual way to fit the interest rate models is to reorganize the discrete-time observations into a linear regression format and then fit a linear regression model. If the positivity assumption imposed on some of the parameters is not satisfied, they just discard the fitted model and fit another SDE model. Fitting a SDE model in this way is not quite correct. My opinion is that if you want to fit a model with postitivity assumption to some parameters, you have to consider it during the fitting process. You can not fit a model by ignoring the assumption first and then check the assumption after the model is fitted. This is why we propose using MCMC to fit these SDE models in which the assumption can be satisfied automatically in the estimation process.</p>
 </div>
 <div id="install-the-package" class="section level1" number="2">
@@ -381,7 +382,7 @@ $(document).ready(function () {
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;zhongxianmen2020/interRate&quot;</span>, <span class="at">force=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## Downloading GitHub repo zhongxianmen2020/interRate@HEAD</code></pre>
 <pre><code>## 
-## * checking for file &#39;C:\Users\zhongxian\AppData\Local\Temp\RtmpyULDU3\remotes2b683364e61\zhongxianmen2020-interRate-cbeaf78/DESCRIPTION&#39; ... OK
+## * checking for file &#39;C:\Users\zhongxian\AppData\Local\Temp\RtmpAfx0Dq\remotesf9c720a4766\zhongxianmen2020-interRate-cbeaf78/DESCRIPTION&#39; ... OK
 ## * preparing &#39;interRate&#39;:
 ## * checking DESCRIPTION meta-information ... OK
 ## * checking for LF line-endings in source and make files and shell scripts
@@ -445,7 +446,7 @@ Residual_t =(r_t-(\hat{\alpha} -\hat{\beta} r_t))/\hat{\sigma},
 ## D = 0.028598, p-value = 0.8091
 ## alternative hypothesis: two-sided</code></pre>
 <p>The K-S test for the normality assumption shows that the p-value is 0.8091. So we can not reject the non hypothesis that the standardized residuals follow a univariate normal distribution.</p>
-<p>Another approach is to assess the probability integra transforms (PITs)] obtained from fitted SDE models. If the fitted SDE model agrees with the data, the PITs will follow a uniform distribution <span class="math inline">\(U(0,1)\)</span>. Again, we use the K-S test to test the uniformality of the PITs.</p>
+<p>Another approach is to assess <a href="https://en.wikipedia.org/wiki/Probability_integral_transform">probability integral transforms (PITs)</a> obtained from fitted SDE models. If the fitted SDE model agrees with the data, the PITs will follow a uniform distribution <span class="math inline">\(U(0,1)\)</span>. Again, we use the K-S test to test the uniformality of the PITs.</p>
 <p>Suppose that <span class="math inline">\(\{f(r_t|{\cal F}_{t-1})\}_{t=1}^{T}\)</span> is a sequence of conditional densities of <span class="math inline">\(r_t\)</span> and <span class="math inline">\(\{p(r_t|{\cal F}_{t-1})\}_{t=1}^{T}\)</span> is the corresponding sequence of one-step-ahead density forecasts. The PIT of <span class="math inline">\(r_t\)</span> is defined as</p>
 <p><span class="math display">\[
 u(t)=\int_{-\infty}^{r_t} p(z|{\cal F}_{t-1})dz.
@@ -711,14 +712,14 @@ f(\beta| {\bf r}, \theta_{-\beta}) \propto \Pi_{t=2}^T\Bigg[ \exp \Bigg(-\frac{[
 \propto \exp \Bigg(-\frac{1}{2}\bigg[\beta^2\sum_{t=2}^T \frac{ r_{t-1}^2}{\sigma^2} - 2\beta\sum_{t=2}^T \frac{(-r_t +r_{t-1}  +\alpha) r_{t-1}}{\sigma^2 }\Bigg] \Bigg).
 \]</span> So the full conditional of <span class="math inline">\(\beta\)</span> is a univariate normal distribution, <span class="math display">\[
 \beta\sim N\bigg(\frac{d_1}{c_1}, \sqrt{\frac{1}{c_1}}\bigg), \text{where } c_1=\sum_{t=2}^T \frac{ r_{t-1}^2}{\sigma^2} \text { and } d_1=\sum_{t=2}^T \frac{(-r_t +r_{t-1}  +\alpha)r_{t-1}}{\sigma^2 }.
-\]</span> Simulation of the full conditional of <span class="math inline">\(\beta\)</span> is carried out by just sampling a univariate normal distribution truanted in the interval <span class="math inline">\((0, \infty)\)</span>. We propose to use the slice sampler introduced in Neal (2003) to simulate this full conditional.</p>
+\]</span> Simulation of the full conditional of <span class="math inline">\(\beta\)</span> is carried out by just sampling a univariate normal distribution truanted in the interval <span class="math inline">\((0, \infty)\)</span>. We propose to use the slice sampler introduced in <a href="http://www.peterbeerli.com/classes/images/4/42/Neal2003.pdf">Neal (2003)</a> to simulate this full conditional to simulate this full conditional.</p>
 <p><strong>Sample</strong> Sample <span class="math inline">\({\sigma^2}\)</span>. The full conditional of <span class="math inline">\(\sigma^2\)</span> is given by <span class="math display">\[
 f(\sigma^2| {\bf r}, \theta_{-\sigma}) \propto (\sigma^2)^{-\frac{T-1}{2}}\Pi_{t=2}^T\Bigg[ \exp \Bigg(-\frac{[r_t -r_{t-1} -\alpha +\beta r_{t-1}]^2}{2\sigma^2 }\Bigg)\Bigg]\notag\\
 = (\sigma^2)^{-\frac{T-1}{2}} \exp \Bigg(-\frac{\frac{1}{2}\sum_{t=2}^T[r_t -r_{t-1} -\alpha +\beta r_{t-1}]^2}{\sigma^2 } \Bigg).
-\]</span> So the full conditional of <span class="math inline">\(\sigma^2\)</span> is an Inverse Gamma distribution, <span class="math display">\[
+\]</span> So the full conditional of <span class="math inline">\(\sigma^2\)</span> is an <a href="https://en.wikipedia.org/wiki/Inverse-gamma_distribution">Inverse Gamma</a> distribution, <span class="math display">\[
 \sigma^2\sim IG\bigg(\frac{T-3}{2}, \delta\bigg), \text{where } \delta=\frac{1}{2}\sum_{t=2}^T[r_t -r_{t-1} -\alpha +\beta r_{t-1}]^2.
 \]</span> We Simulate the full conditional of <span class="math inline">\(\sigma^2\)</span> by simulating an Inverse Gamma distribution.</p>
-<p><strong>Please kindly let us <code>zhongxianmen@hotmail.com</code> know your comments and suggestions, so we can improve it in the next version.</strong></p>
+<p><strong>Please kindly let us <code>zhongxianmen@hotmail.com, chengguo.weng@uwaterloo.ca</code> know your comments and suggestions, so we can improve it in the next version.</strong></p>
 </div>
 
 
