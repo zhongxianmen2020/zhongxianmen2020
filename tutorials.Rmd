@@ -15,13 +15,9 @@ options(width = 105)
 knitr::opts_chunk$set(dev='png', dpi=300, cache=TRUE)
 pdf.options(useDingbats = TRUE)
 ```
+I will start to write some tutorials here to help readers understand why we need simulation based inference. Those materials will introduce basic concepts of simulation-based inference such as acceptance-rejection methods, random number generation for non-usual distributions, slice sampler, Metropolis_Hastings methods etc. Those methods are just to get you familiar on why and how we need these techniques. R or Python codes will be provided and can also be found in my GitHub repositories.    
 
-Data Scientist
-zhongxianmen@hotmail.com
-<!-- P.J. Bartlein -->
-<!-- Dept. Geography -->
-<!-- Univ. Oregon -->
-<!-- bartlein@uoregon.edu -->
 
-The GitHub repository for this web site is at:
-[https://zhongxianmen2020.github.io/zhongxianmen2020/](https://zhongxianmen2020.github.io/zhongxianmen2020/)
+
+
+
