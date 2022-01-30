@@ -35,6 +35,6 @@ The package `stovol` is to fit two type of stochastic volatility (SV) models usi
 &nbsp;
 
 
-### 3. [stoconl: An R package on Bayesian Markov Chain Monte Carlo inference for stochastic conditional duration models]
+### 3. [stocon: An R package on Bayesian Markov Chain Monte Carlo inference for stochastic conditional duration models]
 
 I am working on this ....
