@@ -32,4 +32,9 @@ The package `interRate` aims to built an R package to fit four types of stochast
 
 The package `stovol` is to fit two type of stochastic volatility (SV) models using Bayesian MCMC methods, model assessments are also included.
 
+&nbsp;
 
+
+### 3. [stoconl: An R package on Bayesian Markov Chain Monte Carlo inference for stochastic conditional duration models]
+
+I am working on this ....
